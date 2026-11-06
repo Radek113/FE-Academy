@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: Photo Portfolio API
+  version: 1.0.0
+  description: Read-only public API serving photo previews and details.
+servers:
+  - url: /api
+tags:
+  - name: photos
+paths:
+  /photos/preview:
+    get:
+      tags: [photos]
+      operationId: getPhotoPreviews
+      summary: List photo previews (thumbnail metadata)
+      parameters:
+        - name: tag
+          in: query
+          description: Return only photos having this tag
+          schema: { type: string }
+        - name: page
+          in: query
+          schema: { type: integer, minimum: 1, default: 1 }
+        - name: pageSize
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+      responses:
+        '200':
+          description: Page of previews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhotoPreviewPage'
+  /photos/{id}/content:
+    get:
+      tags: [photos]
+      operationId: getPhotoContent
+      summary: Get detailed photo content
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Photo details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhotoContent'
+        '404':
+          description: Photo not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    PhotoPreview:
+      type: object
+      required: [id, title, thumbnailUrl, width, height, tags]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        thumbnailUrl: { type: string, format: uri }
+        width: { type: integer }
+        height: { type: integer }
+        tags:
+          type: array
+          items: { type: string }
+        takenAt: { type: string, format: date-time }
+    PhotoPreviewPage:
+      type: object
+      required: [items, page, pageSize, total]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/PhotoPreview' }
+        page: { type: integer }
+        pageSize: { type: integer }
+        total: { type: integer }
+    PhotoContent:
+      type: object
+      required: [id, title, imageUrl, width, height, tags]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: string }
+        imageUrl: { type: string, format: uri }
+        width: { type: integer }
+        height: { type: integer }
+        tags:
+          type: array
+          items: { type: string }
+        takenAt: { type: string, format: date-time }
+        location: { type: string }
+        exif: { $ref: '#/components/schemas/Exif' }
+    Exif:
+      type: object
+      properties:
+        camera: { type: string }
+        lens: { type: string }
+        iso: { type: integer }
+        aperture: { type: string }
+        shutterSpeed: { type: string }
+        focalLength: { type: string }
+    Error:
+      type: object
+      required: [message]
+      properties:
+        message: { type: string }

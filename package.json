@@ -11,7 +11,12 @@
     "lint:fix": "ng lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "api:generate": "orval",
+    "prestart": "npm run api:generate",
+    "prebuild": "npm run api:generate",
+    "pretest": "npm run api:generate",
+    "prelint": "npm run api:generate"
   },
   "private": true,
   "type": "module",
@@ -33,6 +38,7 @@
     "@angular/cli": "^22.2.4",
     "@angular/compiler-cli": "^22.2.0",
     "@eslint/js": "^10.0.1",
+    "@faker-js/faker": "^10.6.0",
     "@tailwindcss/postcss": "^4.1.12",
     "angular-eslint": "22.6.0",
     "eslint": "^10.12.0",
@@ -40,11 +46,18 @@
     "husky": "^9.1.7",
     "jsdom": "^30.0.0",
     "lint-staged": "^17.6.0",
+    "msw": "^3.0.4",
+    "orval": "^8.46.0",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.12",
     "typescript": "~6.0.2",
     "typescript-eslint": "8.71.0",
     "vitest": "^5.0.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

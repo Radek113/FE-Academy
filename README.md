@@ -57,3 +57,9 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## API contract and mocks
+
+- The API is defined in `api/openapi.yaml` (`GET /photos/preview`, `GET /photos/{id}/content`).
+- `npm run api:generate` (Orval) regenerates types, Angular services and MSW handlers in `src/app/api/generated` (git-ignored, regenerated automatically before start/build/test/lint).
+- `npm start` runs with MSW mocks (`src/mocks`, `useMocks` in `src/environments/environment.ts`). Production builds swap in `src/environments/environment.prod.ts` and exclude MSW.

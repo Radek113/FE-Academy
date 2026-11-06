@@ -41,7 +41,24 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/mocks/enable-mocking.ts",
+                  "with": "src/mocks/enable-mocking.prod.ts"
+                }
+              ],
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "public",
+                  "ignore": ["mockServiceWorker.js"]
+                }
+              ]
             },
             "development": {
               "optimization": false,
