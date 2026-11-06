@@ -1,0 +1,48 @@
+<mat-toolbar
+  class="sticky top-0 z-10 border-b border-solid border-(--mat-sys-outline-variant) bg-(--mat-sys-surface-container)!"
+>
+  <div class="mx-auto flex w-full max-w-6xl items-center gap-2 px-1 sm:px-3">
+    <a
+      routerLink="/"
+      class="inline-flex items-center gap-2 text-xl font-medium text-(--mat-sys-primary) no-underline"
+      aria-label="PhotoPortfolio home"
+    >
+      <mat-icon aria-hidden="true">photo_camera</mat-icon>
+      <span>PhotoPortfolio</span>
+    </a>
+
+    <span class="flex-1"></span>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Main">
+      @for (link of links; track link.path) {
+        <a
+          mat-button
+          [routerLink]="link.path"
+          routerLinkActive="bg-(--mat-sys-secondary-container)!"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+        >
+          <mat-icon aria-hidden="true">{{ link.icon }}</mat-icon>
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <button
+      mat-icon-button
+      class="md:!hidden"
+      type="button"
+      aria-label="Open navigation menu"
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      @for (link of links; track link.path) {
+        <a mat-menu-item [routerLink]="link.path">
+          <mat-icon aria-hidden="true">{{ link.icon }}</mat-icon>
+          <span>{{ link.label }}</span>
+        </a>
+      }
+    </mat-menu>
+  </div>
+</mat-toolbar>
