@@ -1,0 +1,12 @@
+<div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by tag">
+  <button matButton="outlined" type="button" [disabled]="!hasSelection()" (click)="clear()">
+    All
+  </button>
+  <mat-chip-listbox multiple aria-label="Tags">
+    @for (tag of tags(); track tag) {
+      <mat-chip-option [selected]="isSelected(tag)" (selectionChange)="onChipChange($event, tag)">
+        {{ tag }}
+      </mat-chip-option>
+    }
+  </mat-chip-listbox>
+</div>

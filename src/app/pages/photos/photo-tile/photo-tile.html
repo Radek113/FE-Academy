@@ -1,0 +1,19 @@
+<button
+  type="button"
+  class="group block w-full cursor-pointer overflow-hidden rounded-lg border-0 bg-gray-200 bg-cover bg-center p-0"
+  [attr.aria-label]="image().title"
+  [style.aspect-ratio]="aspectRatio()"
+  [style.background-image]="placeholder()"
+  (click)="opened.emit()"
+>
+  <img
+    class="block h-full w-full object-cover transition duration-300 group-hover:scale-105"
+    [class.opacity-0]="!loaded()"
+    [src]="image().previewUrl"
+    [alt]="image().title"
+    [attr.width]="image().width"
+    [attr.height]="image().height"
+    loading="lazy"
+    (load)="onImageLoaded()"
+  />
+</button>
