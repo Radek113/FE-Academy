@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImageTag, type ImageMetadata } from '../../../api/generated/model';
+import { provideTranslocoTesting } from '../../../../testing/transloco-testing';
 import { PhotoDialog, type PhotoDialogData } from './photo-dialog';
 
 const make = (id: string): ImageMetadata => ({
@@ -27,6 +28,7 @@ describe('PhotoDialog', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: data },
         { provide: MatDialogRef, useValue: { close: (): void => undefined } },
+        provideTranslocoTesting(),
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(PhotoDialog);
@@ -46,7 +48,7 @@ describe('PhotoDialog', () => {
     expect(text).toContain('Warsaw');
     expect(text).toContain('Sony A7 III');
     expect(text).toContain('March 5, 2024');
-    expect(text).toContain('night');
+    expect(text).toContain('Night');
   });
 
   it('should navigate with the next and previous buttons', async () => {

@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideTranslocoTesting } from '../../../testing/transloco-testing';
 import { Header } from './header';
 
 describe('Header', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Header],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), provideTranslocoTesting()],
     }).compileComponents();
   });
 

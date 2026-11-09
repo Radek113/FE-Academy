@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ImageTag, type ImageMetadata } from '../../api/generated/model';
+import { provideTranslocoTesting } from '../../../testing/transloco-testing';
 import { Photos } from './photos';
 
 const make = (id: string, tags: ImageTag[]): ImageMetadata => ({
@@ -21,7 +22,7 @@ describe('Photos', () => {
   async function setup() {
     TestBed.configureTestingModule({
       imports: [Photos],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideTranslocoTesting()],
     });
     const fixture = TestBed.createComponent(Photos);
     const http = TestBed.inject(HttpTestingController);
@@ -50,9 +51,9 @@ describe('Photos', () => {
         .find((c) => c.textContent?.trim() === label)
         ?.querySelector('button')
         ?.click();
-    click('nature');
+    click('Nature');
     fixture.detectChanges();
-    click('city');
+    click('City');
     fixture.detectChanges();
     expect(el.querySelectorAll('app-photo-tile').length).toBe(2);
   });

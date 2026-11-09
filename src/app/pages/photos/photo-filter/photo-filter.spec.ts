@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImageTag } from '../../../api/generated/model';
+import { provideTranslocoTesting } from '../../../../testing/transloco-testing';
 import { PhotoFilter } from './photo-filter';
 
 describe('PhotoFilter', () => {
@@ -12,7 +13,10 @@ describe('PhotoFilter', () => {
       ?.querySelector('button');
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [PhotoFilter] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [PhotoFilter],
+      providers: [provideTranslocoTesting()],
+    }).compileComponents();
     fixture = TestBed.createComponent(PhotoFilter);
     emitted = [];
     fixture.componentInstance.selectedTagsChange.subscribe((tags: readonly ImageTag[]): void => {
@@ -27,14 +31,14 @@ describe('PhotoFilter', () => {
   });
 
   it('should emit the tag added to the selection', () => {
-    chip('nature')?.click();
+    chip('Nature')?.click();
     expect(emitted).toEqual([[ImageTag.nature]]);
   });
 
   it('should emit the selection without a deselected tag', () => {
     fixture.componentRef.setInput('selectedTags', [ImageTag.nature, ImageTag.city]);
     fixture.detectChanges();
-    chip('nature')?.click();
+    chip('Nature')?.click();
     expect(emitted).toEqual([[ImageTag.city]]);
   });
 
