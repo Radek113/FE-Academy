@@ -16,7 +16,9 @@
     "takenWith": "Taken with",
     "previous": "Previous",
     "next": "Next",
-    "download": "Download"
+    "download": "Download",
+    "fullscreen": "Enter fullscreen",
+    "exitFullscreen": "Exit fullscreen"
   },
   "tags": {
     "nature": "Nature",

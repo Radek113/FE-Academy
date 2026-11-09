@@ -6,6 +6,8 @@ import {
   HostListener,
   inject,
   signal,
+  viewChild,
+  type ElementRef,
   type Signal,
   type WritableSignal,
 } from '@angular/core';
@@ -52,6 +54,9 @@ export class PhotoDialog {
     (): boolean => this.index() < this.data.images.length - 1,
   );
   protected readonly loading: WritableSignal<boolean> = signal<boolean>(true);
+  protected readonly fullscreen: WritableSignal<boolean> = signal<boolean>(false);
+  private readonly imageContainer: Signal<ElementRef<HTMLElement> | undefined> =
+    viewChild<ElementRef<HTMLElement>>('imageContainer');
 
   constructor() {
     effect(() => {
@@ -64,6 +69,20 @@ export class PhotoDialog {
   protected onKey(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft') this.prev();
     else if (event.key === 'ArrowRight') this.next();
+  }
+
+  @HostListener('document:fullscreenchange')
+  protected onFullscreenChange(): void {
+    this.fullscreen.set(document.fullscreenElement === this.imageContainer()?.nativeElement);
+  }
+
+  protected async toggleFullscreen(): Promise<void> {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await this.imageContainer()?.nativeElement.requestFullscreen();
+    } catch {
+      // Fullscreen unsupported or denied
+    }
   }
 
   protected onImageSettled(): void {

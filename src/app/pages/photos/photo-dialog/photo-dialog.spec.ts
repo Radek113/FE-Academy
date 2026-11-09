@@ -79,6 +79,15 @@ describe('PhotoDialog', () => {
     expect(el.textContent).toContain('Title b');
   });
 
+  it('should request fullscreen when the image is clicked', async () => {
+    await create(0);
+    const container: HTMLElement = el.querySelector('img')!.parentElement as HTMLElement;
+    const spy = vi.fn().mockResolvedValue(undefined);
+    container.requestFullscreen = spy;
+    el.querySelector('img')!.click();
+    expect(spy).toHaveBeenCalled();
+  });
+
   it('should hide the image and show a spinner until it loads', async () => {
     await create(0);
     const img: HTMLImageElement = el.querySelector('img') as HTMLImageElement;
