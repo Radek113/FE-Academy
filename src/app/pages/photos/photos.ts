@@ -3,8 +3,8 @@ import {
   Component,
   computed,
   inject,
-  signal,
   type ResourceRef,
+  signal,
   type Signal,
   type WritableSignal,
 } from '@angular/core';
@@ -13,19 +13,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ImagesService } from '../../api/generated/endpoints';
-import { ImageTag, type ImageMetadata } from '../../api/generated/model';
+import { type ImageMetadata, ImageTag } from '../../api/generated/model';
 import { PhotoDialog, type PhotoDialogData } from './photo-dialog/photo-dialog';
 import { PhotoFilter } from './photo-filter/photo-filter';
 import { PhotoTile } from './photo-tile/photo-tile';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-photos',
-  imports: [MatButtonModule, MatProgressSpinnerModule, PhotoFilter, PhotoTile],
+  imports: [MatButtonModule, MatProgressSpinnerModule, PhotoFilter, PhotoTile, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    provideTranslocoScope({
+      scope: 'photos',
+    }),
+  ],
   templateUrl: './photos.html',
   styleUrl: './photos.css',
 })
 export class Photos {
+  protected readonly prefix: string = 'photos';
   private readonly imagesService: ImagesService = inject(ImagesService);
   private readonly dialog: MatDialog = inject(MatDialog);
 

@@ -1,32 +1,38 @@
-<section class="bg-linear-to-b from-(--mat-sys-primary-container) to-(--mat-sys-surface)">
-  <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:py-32">
-    <h1 class="m-0 text-4xl font-normal text-(--mat-sys-on-primary-container) md:text-5xl">
-      Capturing moments, one frame at a time
-    </h1>
-    <p class="mt-4 text-lg text-(--mat-sys-on-surface-variant)">
-      Welcome to my photo portfolio. Landscapes, cities and portraits collected in one place.
-    </p>
-    <div class="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-      <a mat-flat-button routerLink="/photos">
-        <mat-icon aria-hidden="true">photo_library</mat-icon>
-        View photos
-      </a>
+<ng-container *transloco="let t; prefix: prefix">
+  <section class="bg-linear-to-b from-(--mat-sys-primary-container) to-(--mat-sys-surface)">
+    <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:py-32">
+      <h1 class="m-0 text-4xl font-normal text-(--mat-sys-on-primary-container) md:text-5xl">
+        {{ t('heading') }}
+      </h1>
+      <p class="mt-4 text-lg text-(--mat-sys-on-surface-variant)">
+        {{ t('intro') }}
+      </p>
+      <div
+        class="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
+      >
+        <a mat-flat-button routerLink="/photos">
+          <mat-icon aria-hidden="true">photo_library</mat-icon>
+          {{ t('viewPhotos') }}
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-    @for (feature of features; track feature.title) {
-      <mat-card appearance="outlined">
-        <mat-card-header>
-          <mat-icon mat-card-avatar class="text-(--mat-sys-primary)" aria-hidden="true">
-            {{ feature.icon }}
-          </mat-icon>
-          <mat-card-title>{{ feature.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="!pt-4">{{ feature.text }}</mat-card-content>
-      </mat-card>
-    }
-  </div>
-</section>
+  <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+      @for (feature of features; track feature.key) {
+        <mat-card appearance="outlined">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="text-(--mat-sys-primary)" aria-hidden="true">
+              {{ feature.icon }}
+            </mat-icon>
+            <mat-card-title>{{ t('features.' + feature.key + '.title') }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="!pt-4">{{
+            t('features.' + feature.key + '.text')
+          }}</mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </section>
+</ng-container>

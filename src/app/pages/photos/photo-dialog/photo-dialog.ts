@@ -15,6 +15,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 import type { ImageMetadata } from '../../../api/generated/model';
 
 export interface PhotoDialogData {
@@ -31,12 +32,15 @@ export interface PhotoDialogData {
     MatDialogModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    TranslocoDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideTranslocoScope({ scope: 'photos' })],
   templateUrl: './photo-dialog.html',
   styleUrl: './photo-dialog.css',
 })
 export class PhotoDialog {
+  protected readonly prefix: string = 'photos';
   private readonly data: PhotoDialogData = inject<PhotoDialogData>(MAT_DIALOG_DATA);
 
   protected readonly index: WritableSignal<number> = signal<number>(this.data.index);

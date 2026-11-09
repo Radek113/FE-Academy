@@ -1,0 +1,33 @@
+{
+  "title": "Photos",
+  "error": "Failed to load photos.",
+  "retry": "Retry",
+  "empty": "No photos match the selected tags.",
+  "filter": {
+    "groupLabel": "Filter by tag",
+    "tagsLabel": "Tags",
+    "all": "All"
+  },
+  "dialog": {
+    "close": "Close",
+    "tagsLabel": "Tags",
+    "location": "Location",
+    "date": "Date",
+    "takenWith": "Taken with",
+    "previous": "Previous",
+    "next": "Next",
+    "download": "Download"
+  },
+  "tags": {
+    "nature": "Nature",
+    "landscape": "Landscape",
+    "city": "City",
+    "night": "Night",
+    "portrait": "Portrait",
+    "sea": "Sea",
+    "street": "Street",
+    "architecture": "Architecture",
+    "travel": "Travel",
+    "wildlife": "Wildlife"
+  }
+}

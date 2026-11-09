@@ -10,16 +10,20 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule, type MatChipSelectionChange } from '@angular/material/chips';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 import type { ImageTag } from '../../../api/generated/model';
 
 @Component({
   selector: 'app-photo-filter',
-  imports: [MatChipsModule, MatButtonModule],
+  imports: [MatChipsModule, MatButtonModule, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideTranslocoScope({ scope: 'photos' })],
   templateUrl: './photo-filter.html',
   styleUrl: './photo-filter.css',
 })
 export class PhotoFilter {
+  protected readonly prefix: string = 'photos';
+
   readonly tags: InputSignal<readonly ImageTag[]> = input.required<readonly ImageTag[]>();
   readonly selectedTags: InputSignal<readonly ImageTag[]> = input<readonly ImageTag[]>([]);
   readonly selectedTagsChange: OutputEmitterRef<readonly ImageTag[]> =

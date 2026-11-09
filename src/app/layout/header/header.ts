@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { TranslocoDirective } from '@jsverse/transloco';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -14,14 +15,16 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     MatMenuModule,
     RouterLink,
     RouterLinkActive,
+    TranslocoDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
+  protected readonly prefix: string = 'header';
   protected readonly links = [
-    { path: '/', label: 'Home', icon: 'home', exact: true },
-    { path: '/photos', label: 'Photos', icon: 'photo_library', exact: false },
+    { path: '/', labelKey: 'links.home', icon: 'home', exact: true },
+    { path: '/photos', labelKey: 'links.photos', icon: 'photo_library', exact: false },
   ];
 }

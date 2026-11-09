@@ -1,11 +1,16 @@
-<div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by tag">
+<div
+  *transloco="let t; prefix: prefix"
+  class="flex flex-wrap items-center gap-2"
+  role="group"
+  [attr.aria-label]="t('filter.groupLabel')"
+>
   <button matButton="outlined" type="button" [disabled]="!hasSelection()" (click)="clear()">
-    All
+    {{ t('filter.all') }}
   </button>
-  <mat-chip-listbox multiple aria-label="Tags">
+  <mat-chip-listbox multiple [attr.aria-label]="t('filter.tagsLabel')">
     @for (tag of tags(); track tag) {
       <mat-chip-option [selected]="isSelected(tag)" (selectionChange)="onChipChange($event, tag)">
-        {{ tag }}
+        {{ t('tags.' + tag) }}
       </mat-chip-option>
     }
   </mat-chip-listbox>
