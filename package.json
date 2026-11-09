@@ -31,6 +31,7 @@
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
     "rxjs": "~7.8.0",
+    "thumbhash": "^0.1.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
