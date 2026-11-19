@@ -11,29 +11,23 @@ import {
   type Signal,
   type WritableSignal,
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 import type { ImageMetadata } from '../../../api/generated/model';
-
-export interface PhotoDialogData {
-  images: ImageMetadata[];
-  index: number;
-}
+import { PhotoInfo } from './photo-info/photo-info';
+import type { PhotoDialogData } from './models/photo-dialog-data';
 
 @Component({
   selector: 'app-photo-dialog',
   imports: [
-    DatePipe,
     MatButtonModule,
-    MatChipsModule,
     MatDialogModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    PhotoInfo,
     TranslocoDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

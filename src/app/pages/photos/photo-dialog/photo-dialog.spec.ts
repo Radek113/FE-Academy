@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImageTag, type ImageMetadata } from '../../../api/generated/model';
 import { provideTranslocoTesting } from '../../../../testing/transloco-testing';
-import { PhotoDialog, type PhotoDialogData } from './photo-dialog';
+import { PhotoDialog } from './photo-dialog';
+import type { PhotoDialogData } from './models/photo-dialog-data';
 
 const make = (id: string): ImageMetadata => ({
   id,

@@ -1,0 +1,63 @@
+:host {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.toggle {
+  color: #fff;
+  background: rgb(0 0 0 / 55%);
+  backdrop-filter: blur(6px);
+}
+
+.panel {
+  max-width: min(20rem, 80vw);
+  padding: 0.75rem 1rem;
+  color: #fff;
+  background: rgb(0 0 0 / 65%);
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition:
+    opacity 150ms,
+    transform 150ms,
+    visibility 150ms;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 1rem;
+    margin: 0;
+  }
+
+  dt {
+    font-weight: 500;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  mat-chip-set {
+    margin-top: 0.75rem;
+    --mat-chip-elevated-container-color: rgb(255 255 255 / 92%);
+    --mat-chip-label-text-color: #1a1a1a;
+    --mat-chip-label-text-size: 0.8125rem;
+  }
+}

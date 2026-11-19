@@ -18,7 +18,8 @@
     "next": "Next",
     "download": "Download",
     "fullscreen": "Enter fullscreen",
-    "exitFullscreen": "Exit fullscreen"
+    "exitFullscreen": "Exit fullscreen",
+    "info": "Photo information"
   },
   "tags": {
     "nature": "Nature",

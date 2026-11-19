@@ -1,5 +1,6 @@
 <ng-container *transloco="let t; prefix: prefix">
   <div class="header">
+    <span class="spacer"></span>
     <h2 mat-dialog-title>{{ image().title }}</h2>
     <button matIconButton type="button" mat-dialog-close [attr.aria-label]="t('dialog.close')">
       <mat-icon>close</mat-icon>
@@ -23,6 +24,7 @@
           </div>
         }
         <img
+          class="main"
           role="button"
           tabindex="0"
           (click)="toggleFullscreen()"
@@ -33,21 +35,8 @@
           (load)="onImageSettled()"
           (error)="onImageSettled()"
         />
-      </div>
-      <div class="details">
-        <dl>
-          <dt>{{ t('dialog.location') }}</dt>
-          <dd>{{ image().location }}</dd>
-          <dt>{{ t('dialog.date') }}</dt>
-          <dd>{{ image().date | date: 'longDate' }}</dd>
-          <dt>{{ t('dialog.takenWith') }}</dt>
-          <dd>{{ image().takenWith }}</dd>
-        </dl>
-        <mat-chip-set [attr.aria-label]="t('dialog.tagsLabel')">
-          @for (tag of image().tags; track tag) {
-            <mat-chip>{{ t('tags.' + tag) }}</mat-chip>
-          }
-        </mat-chip-set>
+        <img class="backdrop" alt="" aria-hidden="true" [src]="image().detailedUrl" />
+        <app-photo-info [image]="image()" />
       </div>
     </div>
   </mat-dialog-content>
