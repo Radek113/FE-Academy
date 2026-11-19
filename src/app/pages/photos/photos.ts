@@ -12,7 +12,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ImagesService } from '../../api/generated/endpoints';
+import { ImageMetadataService } from '../../core/services/image-metadata/image-metadata.service';
 import { type ImageMetadata, ImageTag } from '../../api/generated/model';
 import { PhotoDialog } from './photo-dialog/photo-dialog';
 import type { PhotoDialogData } from './photo-dialog/models/photo-dialog-data';
@@ -34,11 +34,11 @@ import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 })
 export class Photos {
   protected readonly prefix: string = 'photos';
-  private readonly imagesService: ImagesService = inject(ImagesService);
+  private readonly imageMetadataService: ImageMetadataService = inject(ImageMetadataService);
   private readonly dialog: MatDialog = inject(MatDialog);
 
   protected readonly images: ResourceRef<ImageMetadata[] | undefined> = rxResource({
-    stream: () => this.imagesService.getImagesMetadata(),
+    stream: () => this.imageMetadataService.getImages(),
   });
   protected readonly allTags: readonly ImageTag[] = Object.values(ImageTag);
   protected readonly selectedTags: WritableSignal<readonly ImageTag[]> = signal<

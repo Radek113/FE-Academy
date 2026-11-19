@@ -3,7 +3,11 @@
     "homeAriaLabel": "PhotoPortfolio home",
     "mainNavAriaLabel": "Main",
     "openMenuAriaLabel": "Open navigation menu",
-    "language": { "label": "Language", "en": "English", "pl": "Polish" },
+    "language": {
+      "label": "Language",
+      "en": "English",
+      "pl": "Polish"
+    },
     "theme": {
       "toggle": "Dark mode",
       "toDark": "Switch to dark mode",
@@ -17,24 +21,5 @@
   "footer": {
     "copyright": "© {{ year }} PhotoPortfolio. All rights reserved.",
     "tagline": "Photography portfolio"
-  },
-  "welcome": {
-    "heading": "Capturing moments, one frame at a time",
-    "intro": "Welcome to my photo portfolio. Landscapes, cities and portraits collected in one place.",
-    "viewPhotos": "View photos",
-    "features": {
-      "browse": {
-        "title": "Browse",
-        "text": "Explore a curated collection of photographs."
-      },
-      "filter": {
-        "title": "Filter",
-        "text": "Narrow the gallery down by tags and categories."
-      },
-      "about": {
-        "title": "About",
-        "text": "Learn more about the photographer behind the lens."
-      }
-    }
   }
 }

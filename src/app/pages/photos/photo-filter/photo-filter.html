@@ -4,10 +4,10 @@
   role="group"
   [attr.aria-label]="t('filter.groupLabel')"
 >
-  <button matButton="outlined" type="button" [disabled]="!hasSelection()" (click)="clear()">
-    {{ t('filter.all') }}
-  </button>
   <mat-chip-listbox multiple [attr.aria-label]="t('filter.tagsLabel')">
+    <mat-chip-option [selected]="!hasSelection()" (selectionChange)="onAllChange($event)">
+      {{ t('filter.all') }}
+    </mat-chip-option>
     @for (tag of tags(); track tag) {
       <mat-chip-option [selected]="isSelected(tag)" (selectionChange)="onChipChange($event, tag)">
         {{ t('tags.' + tag) }}

@@ -1,0 +1,19 @@
+{
+  "heading": "Miejsca, w których byłem, kadry, które zostały",
+  "intro": "Krajobrazy, miejskie ulice i kilka portretów – wszystko w jednym miejscu.",
+  "viewPhotos": "Zobacz zdjęcia",
+  "features": {
+    "browse": {
+      "title": "Przeglądaj",
+      "text": "Przewijaj całą kolekcję."
+    },
+    "filter": {
+      "title": "Filtruj",
+      "text": "Wybierz jeden lub kilka tagów, by zobaczyć tylko to, czego szukasz."
+    },
+    "details": {
+      "title": "Szczegóły zdjęcia",
+      "text": "Kliknij ikonę informacji przy zdjęciu, by sprawdzić, kiedy i gdzie je zrobiono oraz jakim aparatem."
+    }
+  }
+}

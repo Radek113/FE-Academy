@@ -3,9 +3,9 @@
 }
 
 .hero-content {
-  max-width: 48rem;
+  max-width: 56rem;
   margin-inline: auto;
-  padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 4vw, 1.5rem);
+  padding: clamp(4rem, 10vw, 8rem) clamp(0.75rem, 2vw, 1.5rem);
   text-align: center;
 
   h1 {
@@ -23,7 +23,7 @@
 
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: clamp(1rem, 2vw, 1.5rem);
   padding-bottom: 4rem;
 }

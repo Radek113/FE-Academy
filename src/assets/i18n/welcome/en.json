@@ -1,0 +1,19 @@
+{
+  "heading": "Places I've been, frames I kept",
+  "intro": "Landscapes, city streets and a few portraits, all in one place.",
+  "viewPhotos": "See the photos",
+  "features": {
+    "browse": {
+      "title": "Browse",
+      "text": "Scroll through the whole collection."
+    },
+    "filter": {
+      "title": "Filter",
+      "text": "Pick one or more tags to see only what you're after."
+    },
+    "details": {
+      "title": "Photo details",
+      "text": "Tap the info icon on any photo to see when and where it was taken, and with which camera."
+    }
+  }
+}

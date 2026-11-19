@@ -27,7 +27,7 @@ describe('PhotoFilter', () => {
   });
 
   it('should render a chip per tag', () => {
-    expect(fixture.nativeElement.querySelectorAll('mat-chip-option').length).toBe(2);
+    expect(fixture.nativeElement.querySelectorAll('mat-chip-option').length).toBe(3);
   });
 
   it('should emit the tag added to the selection', () => {
@@ -42,14 +42,25 @@ describe('PhotoFilter', () => {
     expect(emitted).toEqual([[ImageTag.city]]);
   });
 
-  it('should disable All when nothing is selected and emit an empty list when clicked', () => {
-    const all: HTMLButtonElement = fixture.nativeElement.querySelector('button[matButton]');
-    expect(all.disabled).toBe(true);
+  it('should show All as selected when nothing is selected and keep it selected on click', () => {
+    expect(chip('All')?.closest('mat-chip-option')?.classList).toContain(
+      'mdc-evolution-chip--selected',
+    );
+    chip('All')?.click();
+    fixture.detectChanges();
+    expect(emitted).toEqual([]);
+    expect(chip('All')?.closest('mat-chip-option')?.classList).toContain(
+      'mdc-evolution-chip--selected',
+    );
+  });
 
+  it('should deselect All when a tag is selected and emit an empty list when All is clicked', () => {
     fixture.componentRef.setInput('selectedTags', [ImageTag.city]);
     fixture.detectChanges();
-    expect(all.disabled).toBe(false);
-    all.click();
+    expect(chip('All')?.closest('mat-chip-option')?.classList).not.toContain(
+      'mdc-evolution-chip--selected',
+    );
+    chip('All')?.click();
     expect(emitted).toEqual([[]]);
   });
 });

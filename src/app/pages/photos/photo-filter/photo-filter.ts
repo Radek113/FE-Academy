@@ -8,14 +8,13 @@ import {
   type OutputEmitterRef,
   type Signal,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule, type MatChipSelectionChange } from '@angular/material/chips';
 import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 import type { ImageTag } from '../../../api/generated/model';
 
 @Component({
   selector: 'app-photo-filter',
-  imports: [MatChipsModule, MatButtonModule, TranslocoDirective],
+  imports: [MatChipsModule, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideTranslocoScope({ scope: 'photos' })],
   templateUrl: './photo-filter.html',
@@ -52,7 +51,15 @@ export class PhotoFilter {
     );
   }
 
-  protected clear(): void {
-    this.selectedTagsChange.emit([]);
+  protected onAllChange(event: MatChipSelectionChange): void {
+    if (!event.isUserInput) {
+      return;
+    }
+    if (event.selected) {
+      this.selectedTagsChange.emit([]);
+    } else if (!this.hasSelection()) {
+      // "All" cannot be deselected manually; it only changes when another chip is picked.
+      event.source.select();
+    }
   }
 }

@@ -24,7 +24,7 @@ describe('App', () => {
 
   it('should show welcome page on root', async () => {
     const harness = await RouterTestingHarness.create('/');
-    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Capturing');
+    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Places');
   });
 
   it('should navigate to photos page', async () => {
@@ -35,6 +35,6 @@ describe('App', () => {
   it('should redirect unknown routes to welcome page', async () => {
     const harness = await RouterTestingHarness.create('/does-not-exist');
     expect(TestBed.inject(Router).url).toBe('/');
-    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Capturing');
+    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('Places');
   });
 });
