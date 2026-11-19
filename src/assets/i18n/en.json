@@ -3,6 +3,12 @@
     "homeAriaLabel": "PhotoPortfolio home",
     "mainNavAriaLabel": "Main",
     "openMenuAriaLabel": "Open navigation menu",
+    "language": { "label": "Language", "en": "English", "pl": "Polish" },
+    "theme": {
+      "toggle": "Dark mode",
+      "toDark": "Switch to dark mode",
+      "toLight": "Switch to light mode"
+    },
     "links": {
       "home": "Home",
       "photos": "Photos"

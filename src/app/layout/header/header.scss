@@ -34,6 +34,32 @@ mat-toolbar {
   }
 }
 
+.settings {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.flag {
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  object-fit: cover;
+  outline: 1px solid var(--mat-sys-outline-variant);
+  outline-offset: -1px;
+  margin-inline-end: 0.5rem;
+}
+
+.language-button .flag {
+  margin-inline-end: 0.375rem;
+}
+
+.check {
+  margin-inline: auto 0;
+  color: var(--mat-sys-primary);
+}
+
 @include bp.from(desktop) {
   .nav {
     display: flex;

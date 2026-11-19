@@ -1,0 +1,40 @@
+{
+  "header": {
+    "homeAriaLabel": "PhotoPortfolio – strona główna",
+    "mainNavAriaLabel": "Główna",
+    "openMenuAriaLabel": "Otwórz menu nawigacji",
+    "language": { "label": "Język", "en": "Angielski", "pl": "Polski" },
+    "theme": {
+      "toggle": "Tryb ciemny",
+      "toDark": "Włącz tryb ciemny",
+      "toLight": "Włącz tryb jasny"
+    },
+    "links": {
+      "home": "Strona główna",
+      "photos": "Zdjęcia"
+    }
+  },
+  "footer": {
+    "copyright": "© {{ year }} PhotoPortfolio. Wszelkie prawa zastrzeżone.",
+    "tagline": "Portfolio fotograficzne"
+  },
+  "welcome": {
+    "heading": "Zatrzymuję chwile, jedno ujęcie po drugim",
+    "intro": "Witaj w moim portfolio fotograficznym. Krajobrazy, miasta i portrety w jednym miejscu.",
+    "viewPhotos": "Zobacz zdjęcia",
+    "features": {
+      "browse": {
+        "title": "Przeglądaj",
+        "text": "Odkryj starannie wybraną kolekcję fotografii."
+      },
+      "filter": {
+        "title": "Filtruj",
+        "text": "Zawęź galerię według tagów i kategorii."
+      },
+      "about": {
+        "title": "O mnie",
+        "text": "Dowiedz się więcej o fotografie stojącym za obiektywem."
+      }
+    }
+  }
+}

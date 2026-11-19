@@ -20,6 +20,65 @@
         }
       </nav>
 
+      <div class="settings">
+        <button
+          mat-button
+          type="button"
+          class="language-button"
+          [attr.aria-label]="
+            t('language.label') + ': ' + t('language.' + languageService.language())
+          "
+          [matMenuTriggerFor]="languageMenu"
+        >
+          <img
+            class="flag"
+            [src]="'assets/flags/' + languageService.language() + '.svg'"
+            alt=""
+            width="20"
+            height="14"
+          />
+          <span class="language-code">{{ languageService.language().toUpperCase() }}</span>
+          <mat-icon iconPositionEnd aria-hidden="true">arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #languageMenu="matMenu" xPosition="before">
+          @for (lang of languages; track lang) {
+            <button
+              mat-menu-item
+              type="button"
+              [attr.lang]="lang"
+              [attr.aria-current]="lang === languageService.language() ? 'true' : null"
+              (click)="languageService.setLanguage(lang)"
+            >
+              <img
+                class="flag"
+                [src]="'assets/flags/' + lang + '.svg'"
+                alt=""
+                width="20"
+                height="14"
+              />
+              <span>{{ t('language.' + lang) }}</span>
+              @if (lang === languageService.language()) {
+                <mat-icon class="check" aria-hidden="true">check</mat-icon>
+              }
+            </button>
+          }
+        </mat-menu>
+
+        <button
+          mat-icon-button
+          type="button"
+          class="theme-toggle"
+          [attr.aria-pressed]="themeService.theme() === 'dark'"
+          [attr.aria-label]="t('theme.toggle')"
+          [matTooltip]="themeService.theme() === 'dark' ? t('theme.toLight') : t('theme.toDark')"
+          (click)="themeService.toggle()"
+        >
+          <mat-icon aria-hidden="true">{{
+            themeService.theme() === 'dark' ? 'light_mode' : 'dark_mode'
+          }}</mat-icon>
+        </button>
+      </div>
+
       <button
         mat-icon-button
         class="menu-button"

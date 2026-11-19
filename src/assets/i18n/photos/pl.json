@@ -1,0 +1,36 @@
+{
+  "title": "Zdjęcia",
+  "error": "Nie udało się wczytać zdjęć.",
+  "retry": "Spróbuj ponownie",
+  "empty": "Brak zdjęć pasujących do wybranych tagów.",
+  "filter": {
+    "groupLabel": "Filtruj według tagu",
+    "tagsLabel": "Tagi",
+    "all": "Wszystkie"
+  },
+  "dialog": {
+    "close": "Zamknij",
+    "tagsLabel": "Tagi",
+    "location": "Lokalizacja",
+    "date": "Data",
+    "takenWith": "Wykonano aparatem",
+    "previous": "Poprzednie",
+    "next": "Następne",
+    "download": "Pobierz",
+    "fullscreen": "Pełny ekran",
+    "exitFullscreen": "Zamknij pełny ekran",
+    "info": "Informacje o zdjęciu"
+  },
+  "tags": {
+    "nature": "Przyroda",
+    "landscape": "Krajobraz",
+    "city": "Miasto",
+    "night": "Noc",
+    "portrait": "Portret",
+    "sea": "Morze",
+    "street": "Ulica",
+    "architecture": "Architektura",
+    "travel": "Podróże",
+    "wildlife": "Dzika przyroda"
+  }
+}
