@@ -50,6 +50,11 @@ mat-dialog-content {
     }
   }
 
+  img.main:focus,
+  img.main:focus-visible {
+    outline: none;
+  }
+
   &.fullscreen img.main {
     cursor: zoom-out;
   }
@@ -74,6 +79,23 @@ mat-dialog-content {
   z-index: 3;
   color: #fff;
   background: rgb(0 0 0 / 45%);
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  color: #fff;
+  background: rgb(0 0 0 / 45%);
+
+  &.prev {
+    left: 0.25rem;
+  }
+
+  &.next {
+    right: 0.25rem;
+  }
 }
 
 .spinner {

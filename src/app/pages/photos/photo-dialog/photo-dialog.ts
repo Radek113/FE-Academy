@@ -79,6 +79,21 @@ export class PhotoDialog {
     }
   }
 
+  private touchStartX: number | null = null;
+
+  protected onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches.length === 1 ? event.touches[0].clientX : null;
+  }
+
+  protected onTouchEnd(event: TouchEvent): void {
+    if (this.touchStartX === null) return;
+    const delta = event.changedTouches[0].clientX - this.touchStartX;
+    this.touchStartX = null;
+    if (Math.abs(delta) < 50) return;
+    if (delta > 0) this.prev();
+    else this.next();
+  }
+
   protected onImageSettled(): void {
     this.loading.set(false);
   }
