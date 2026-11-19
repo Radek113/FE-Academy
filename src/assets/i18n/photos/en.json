@@ -1,5 +1,4 @@
 {
-  "title": "Photos",
   "error": "Failed to load photos.",
   "retry": "Retry",
   "empty": "No photos match the selected tags.",
