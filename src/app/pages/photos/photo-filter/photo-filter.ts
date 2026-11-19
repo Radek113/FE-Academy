@@ -19,7 +19,7 @@ import type { ImageTag } from '../../../api/generated/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideTranslocoScope({ scope: 'photos' })],
   templateUrl: './photo-filter.html',
-  styleUrl: './photo-filter.css',
+  styleUrl: './photo-filter.scss',
 })
 export class PhotoFilter {
   protected readonly prefix: string = 'photos';

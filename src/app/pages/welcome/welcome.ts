@@ -10,7 +10,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
   imports: [MatButtonModule, MatCardModule, MatIconModule, RouterLink, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './welcome.html',
-  styleUrl: './welcome.css',
+  styleUrl: './welcome.scss',
 })
 export class Welcome {
   protected readonly prefix: string = 'welcome';

@@ -8,7 +8,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
   imports: [MatIconModule, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './footer.html',
-  styleUrl: './footer.css',
+  styleUrl: './footer.scss',
 })
 export class Footer {
   protected readonly prefix: string = 'footer';

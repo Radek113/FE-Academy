@@ -29,7 +29,7 @@ import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
     }),
   ],
   templateUrl: './photos.html',
-  styleUrl: './photos.css',
+  styleUrl: './photos.scss',
 })
 export class Photos {
   protected readonly prefix: string = 'photos';

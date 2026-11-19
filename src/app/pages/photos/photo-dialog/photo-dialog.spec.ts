@@ -92,11 +92,11 @@ describe('PhotoDialog', () => {
     await create(0);
     const img: HTMLImageElement = el.querySelector('img') as HTMLImageElement;
     expect(el.querySelector('mat-spinner')).not.toBeNull();
-    expect(img.classList).toContain('opacity-0');
+    expect(img.classList).toContain('loading');
 
     img.dispatchEvent(new Event('load'));
     fixture.detectChanges();
     expect(el.querySelector('mat-spinner')).toBeNull();
-    expect(img.classList).not.toContain('opacity-0');
+    expect(img.classList).not.toContain('loading');
   });
 });

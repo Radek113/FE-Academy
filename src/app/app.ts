@@ -7,7 +7,7 @@ import { Header } from './layout/header/header';
   imports: [RouterOutlet, Header, Footer],
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './app.css',
+  styleUrl: './app.scss',
   templateUrl: './app.html',
 })
 export class App {}

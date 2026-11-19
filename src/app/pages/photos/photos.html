@@ -1,25 +1,24 @@
 <ng-container *transloco="let t; prefix: prefix">
-  <section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-    <h1 class="m-0 mb-6 text-3xl font-medium">{{ t('title') }}</h1>
+  <section class="page-container">
+    <h1>{{ t('title') }}</h1>
 
     <app-photo-filter
-      class="mb-6 block"
       [tags]="allTags"
       [selectedTags]="selectedTags()"
       (selectedTagsChange)="onSelectedTagsChange($event)"
     />
 
     @if (images.isLoading()) {
-      <div class="flex justify-center py-16">
+      <div class="state">
         <mat-spinner diameter="48" />
       </div>
     } @else if (images.error()) {
-      <div class="flex flex-col items-center gap-4 py-16">
+      <div class="state">
         <p>{{ t('error') }}</p>
         <button matButton="filled" type="button" (click)="images.reload()">{{ t('retry') }}</button>
       </div>
     } @else {
-      <div class="columns-2 gap-4 md:columns-3 lg:columns-4">
+      <div class="gallery">
         @for (image of filteredImages(); track image.id; let i = $index) {
           <app-photo-tile [image]="image" (opened)="open(i)" />
         } @empty {

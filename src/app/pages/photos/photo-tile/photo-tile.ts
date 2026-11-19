@@ -19,7 +19,7 @@ import { ThumbhashService } from '../../../core/services/thumbhash/thumbhash.ser
   host: { class: 'mb-4 block break-inside-avoid' },
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './photo-tile.html',
-  styleUrl: './photo-tile.css',
+  styleUrl: './photo-tile.scss',
 })
 export class PhotoTile {
   private readonly thumbhashService: ThumbhashService = inject(ThumbhashService);

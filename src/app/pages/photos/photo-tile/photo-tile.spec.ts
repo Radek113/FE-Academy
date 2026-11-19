@@ -41,10 +41,10 @@ describe('PhotoTile', () => {
 
   it('should fade the image in once loaded', () => {
     const img: HTMLImageElement = el.querySelector('img') as HTMLImageElement;
-    expect(img.classList).toContain('opacity-0');
+    expect(img.classList).toContain('loading');
     img.dispatchEvent(new Event('load'));
     fixture.detectChanges();
-    expect(img.classList).not.toContain('opacity-0');
+    expect(img.classList).not.toContain('loading');
   });
 
   it('should emit opened on click', () => {

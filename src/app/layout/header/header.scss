@@ -1,0 +1,45 @@
+@use '../../../styles/breakpoints' as bp;
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-container);
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-end: auto;
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-title-large);
+  text-decoration: none;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+
+  a.active {
+    background: var(--mat-sys-secondary-container);
+  }
+}
+
+@include bp.from(desktop) {
+  .nav {
+    display: flex;
+  }
+
+  .menu-button {
+    display: none;
+  }
+}

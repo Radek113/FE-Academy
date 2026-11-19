@@ -39,7 +39,7 @@ export interface PhotoDialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideTranslocoScope({ scope: 'photos' })],
   templateUrl: './photo-dialog.html',
-  styleUrl: './photo-dialog.css',
+  styleUrl: './photo-dialog.scss',
 })
 export class PhotoDialog {
   protected readonly prefix: string = 'photos';

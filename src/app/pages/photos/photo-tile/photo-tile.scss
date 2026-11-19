@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+  break-inside: avoid;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--mat-sys-corner-small, 0.5rem);
+  background: var(--mat-sys-surface-variant) center / cover;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 300ms,
+    opacity 300ms;
+
+  &.loading {
+    opacity: 0;
+  }
+}
+
+button:hover img {
+  transform: scale(1.05);
+}

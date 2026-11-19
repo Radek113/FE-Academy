@@ -1,56 +1,49 @@
 <ng-container *transloco="let t; prefix: prefix">
-  <div class="flex items-center justify-between pr-2">
+  <div class="header">
     <h2 mat-dialog-title>{{ image().title }}</h2>
     <button matIconButton type="button" mat-dialog-close [attr.aria-label]="t('dialog.close')">
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <mat-dialog-content class="!max-h-[75vh]">
-    <div class="flex flex-col gap-4 md:flex-row">
-      <div
-        #imageContainer
-        class="relative flex h-[45vh] min-w-0 flex-1 items-center justify-center bg-gray-100 md:h-[60vh]"
-        [class.!h-full]="fullscreen()"
-        [class.!bg-black]="fullscreen()"
-      >
+  <mat-dialog-content>
+    <div class="layout">
+      <div #imageContainer class="viewer" [class.fullscreen]="fullscreen()">
         <button
           matIconButton
           type="button"
-          class="!absolute right-1 top-1 z-10"
+          class="fullscreen-button"
           [attr.aria-label]="fullscreen() ? t('dialog.exitFullscreen') : t('dialog.fullscreen')"
           (click)="toggleFullscreen()"
         >
           <mat-icon>{{ fullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</mat-icon>
         </button>
         @if (loading()) {
-          <div class="absolute inset-0 flex items-center justify-center">
+          <div class="spinner">
             <mat-spinner diameter="48" />
           </div>
         }
         <img
-          class="max-h-full max-w-full cursor-zoom-in object-contain transition-opacity duration-300"
-          [class.!cursor-zoom-out]="fullscreen()"
           role="button"
           tabindex="0"
           (click)="toggleFullscreen()"
           (keydown.enter)="toggleFullscreen()"
-          [class.opacity-0]="loading()"
+          [class.loading]="loading()"
           [src]="image().detailedUrl"
           [alt]="image().title"
           (load)="onImageSettled()"
           (error)="onImageSettled()"
         />
       </div>
-      <div class="md:w-64 md:shrink-0">
-        <dl class="m-0 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
-          <dt class="font-medium">{{ t('dialog.location') }}</dt>
-          <dd class="m-0">{{ image().location }}</dd>
-          <dt class="font-medium">{{ t('dialog.date') }}</dt>
-          <dd class="m-0">{{ image().date | date: 'longDate' }}</dd>
-          <dt class="font-medium">{{ t('dialog.takenWith') }}</dt>
-          <dd class="m-0">{{ image().takenWith }}</dd>
+      <div class="details">
+        <dl>
+          <dt>{{ t('dialog.location') }}</dt>
+          <dd>{{ image().location }}</dd>
+          <dt>{{ t('dialog.date') }}</dt>
+          <dd>{{ image().date | date: 'longDate' }}</dd>
+          <dt>{{ t('dialog.takenWith') }}</dt>
+          <dd>{{ image().takenWith }}</dd>
         </dl>
-        <mat-chip-set class="mt-3" [attr.aria-label]="t('dialog.tagsLabel')">
+        <mat-chip-set [attr.aria-label]="t('dialog.tagsLabel')">
           @for (tag of image().tags; track tag) {
             <mat-chip>{{ t('tags.' + tag) }}</mat-chip>
           }

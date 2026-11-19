@@ -1,0 +1,14 @@
+@use 'sass:map';
+
+// Single source of truth for responsive breakpoints (matches Tailwind's defaults).
+$breakpoints: (
+  tablet: 40rem,
+  desktop: 48rem,
+  wide: 64rem,
+);
+
+@mixin from($name) {
+  @media (min-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}

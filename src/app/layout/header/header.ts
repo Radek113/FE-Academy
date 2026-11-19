@@ -19,7 +19,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './header.html',
-  styleUrl: './header.css',
+  styleUrl: './header.scss',
 })
 export class Header {
   protected readonly prefix: string = 'header';

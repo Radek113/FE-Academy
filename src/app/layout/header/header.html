@@ -1,25 +1,17 @@
 <ng-container *transloco="let t; prefix: prefix">
-  <mat-toolbar
-    class="sticky top-0 z-10 border-b border-solid border-(--mat-sys-outline-variant) bg-(--mat-sys-surface-container)!"
-  >
-    <div class="mx-auto flex w-full max-w-6xl items-center gap-2 px-1 sm:px-3">
-      <a
-        routerLink="/"
-        class="inline-flex items-center gap-2 text-xl font-medium text-(--mat-sys-primary) no-underline"
-        [attr.aria-label]="t('homeAriaLabel')"
-      >
+  <mat-toolbar>
+    <div class="page-container toolbar-content">
+      <a routerLink="/" class="brand" [attr.aria-label]="t('homeAriaLabel')">
         <mat-icon aria-hidden="true">photo_camera</mat-icon>
         <span>PhotoPortfolio</span>
       </a>
 
-      <span class="flex-1"></span>
-
-      <nav class="hidden items-center gap-1 md:flex" [attr.aria-label]="t('mainNavAriaLabel')">
+      <nav class="nav" [attr.aria-label]="t('mainNavAriaLabel')">
         @for (link of links; track link.path) {
           <a
             mat-button
             [routerLink]="link.path"
-            routerLinkActive="bg-(--mat-sys-secondary-container)!"
+            routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: link.exact }"
           >
             <mat-icon aria-hidden="true">{{ link.icon }}</mat-icon>
@@ -30,7 +22,7 @@
 
       <button
         mat-icon-button
-        class="md:!hidden"
+        class="menu-button"
         type="button"
         [attr.aria-label]="t('openMenuAriaLabel')"
         [matMenuTriggerFor]="menu"
