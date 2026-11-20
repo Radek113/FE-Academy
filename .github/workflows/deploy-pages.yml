@@ -21,9 +21,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
-      - run: npm ci
+      - name: Use the npm version the project is pinned to
+        run: npm install -g npm@11
+      - run: npm ci --no-audit --no-fund
       - run: npm run api:generate
       - run: npx ng build --configuration github-pages
       - name: SPA fallback for deep links
