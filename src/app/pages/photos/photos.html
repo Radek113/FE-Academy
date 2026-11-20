@@ -18,13 +18,15 @@
         </button>
       </div>
     } @else {
-      <div class="gallery" data-tst="photos-gallery">
-        @for (image of filteredImages(); track image.id; let i = $index) {
-          <app-photo-tile data-tst="photo-tile" [image]="image" (opened)="open(i)" />
-        } @empty {
-          <p data-tst="photos-empty">{{ t('empty') }}</p>
-        }
-      </div>
+      @if (filteredImages().length) {
+        <div class="gallery" data-tst="photos-gallery">
+          @for (image of filteredImages(); track image.id; let i = $index) {
+            <app-photo-tile data-tst="photo-tile" [image]="image" (opened)="open(i)" />
+          }
+        </div>
+      } @else {
+        <app-photos-empty data-tst="photos-empty" (clearFilters)="onSelectedTagsChange([])" />
+      }
     }
   </section>
 </ng-container>

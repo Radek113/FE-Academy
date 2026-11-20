@@ -88,6 +88,20 @@ describe('Photos', () => {
     expect(queryTst(el, 'photos-empty')).not.toBeNull();
   });
 
+  it('should show all photos after clearing filters from the empty state', async () => {
+    // given
+    const { el, clickTag, fixture, tileIds } = await setup(() => of([nature]));
+    clickTag(ImageTag.wildlife);
+
+    // when
+    getTst<HTMLButtonElement>(el, 'photos-empty-clear').click();
+    fixture.detectChanges();
+
+    // then
+    expect(queryTst(el, 'photos-empty')).toBeNull();
+    expect(tileIds()).toEqual([nature.title]);
+  });
+
   it('should show an error and reload on retry', async () => {
     // given
     const getImages = vi

@@ -12,7 +12,7 @@ const seeds: [string, string, ImageTag[], string][] = [
   ['Alpine Lake', 'Morskie Oko', [ImageTag.nature, ImageTag.travel], 'Sony A7 III'],
   ['Window Light', 'Studio', [ImageTag.portrait], 'Canon EOS R6'],
   ['Old Town', 'Gdansk', [ImageTag.architecture, ImageTag.city, ImageTag.travel], 'iPhone 15 Pro'],
-  ['Forest Fox', 'Bialowieza', [ImageTag.wildlife, ImageTag.nature], 'Nikon Z6 II'],
+  ['Forest Fox', 'Bialowieza', [ImageTag.nature], 'Nikon Z6 II'],
 ];
 
 export const images: ImageMetadata[] = Array.from({ length: 50 }, (_, i) => {

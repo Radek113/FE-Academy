@@ -1,7 +1,11 @@
 {
   "error": "Nie udało się wczytać zdjęć.",
   "retry": "Spróbuj ponownie",
-  "empty": "Brak zdjęć pasujących do wybranych tagów.",
+  "empty": {
+    "title": "Nie znaleziono zdjęć",
+    "hint": "Brak zdjęć pasujących do wybranych tagów.",
+    "clear": "Pokaż wszystkie zdjęcia"
+  },
   "filter": {
     "groupLabel": "Filtruj według tagu",
     "tagsLabel": "Tagi",

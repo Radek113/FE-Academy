@@ -1,7 +1,11 @@
 {
   "error": "Failed to load photos.",
   "retry": "Retry",
-  "empty": "No photos match the selected tags.",
+  "empty": {
+    "title": "No photos found",
+    "hint": "No photos match the selected tags.",
+    "clear": "Show all photos"
+  },
   "filter": {
     "groupLabel": "Filter by tag",
     "tagsLabel": "Tags",

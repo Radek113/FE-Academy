@@ -20,6 +20,7 @@ import type { PhotoDialogData } from './photo-dialog/models/photo-dialog-data';
 import { PhotoDialog } from './photo-dialog/photo-dialog';
 import { PhotoFilter } from './photo-filter/photo-filter';
 import { PhotoTile } from './photo-tile/photo-tile';
+import { PhotosEmpty } from './photos-empty/photos-empty';
 import { PHOTOS_SCOPE } from './photos-scope.transloco';
 
 const DIALOG_WIDTH = '1100px';
@@ -27,7 +28,14 @@ const DIALOG_MAX_WIDTH = '95vw';
 
 @Component({
   selector: 'app-photos',
-  imports: [MatButtonModule, MatProgressSpinnerModule, PhotoFilter, PhotoTile, TranslocoDirective],
+  imports: [
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    PhotoFilter,
+    PhotosEmpty,
+    PhotoTile,
+    TranslocoDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './photos.html',
   styleUrl: './photos.scss',

@@ -1,0 +1,13 @@
+<ng-container *transloco="let t; prefix: prefix">
+  <mat-icon class="icon" aria-hidden="true">image_not_found</mat-icon>
+  <h2 class="title" data-tst="photos-empty-title">{{ t('empty.title') }}</h2>
+  <p class="hint">{{ t('empty.hint') }}</p>
+  <button
+    matButton="filled"
+    type="button"
+    data-tst="photos-empty-clear"
+    (click)="clearFilters.emit()"
+  >
+    {{ t('empty.clear') }}
+  </button>
+</ng-container>
