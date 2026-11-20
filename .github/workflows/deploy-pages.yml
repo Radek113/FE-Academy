@@ -22,10 +22,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
       - name: Use the npm version the project is pinned to
         run: npm install -g npm@11
-      - run: npm ci --no-audit --no-fund
+      - name: Install without the lockfile
+        run: rm package-lock.json && npm install --no-audit --no-fund
       - run: npm run api:generate
       - run: npx ng build --configuration github-pages
       - name: SPA fallback for deep links
