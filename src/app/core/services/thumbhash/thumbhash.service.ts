@@ -5,14 +5,18 @@ import { thumbHashToDataURL } from 'thumbhash';
 export class ThumbhashService {
   private readonly cache: Map<string, string> = new Map<string, string>();
 
-  toDataUrl(hash: string): string {
+  toDataUrl(hash: string): string | null {
     const cached: string | undefined = this.cache.get(hash);
     if (cached) {
       return cached;
     }
-    const bytes: Uint8Array = Uint8Array.from(atob(hash), (c: string): number => c.charCodeAt(0));
-    const url: string = thumbHashToDataURL(bytes);
-    this.cache.set(hash, url);
-    return url;
+    try {
+      const bytes: Uint8Array = Uint8Array.from(atob(hash), (c: string): number => c.charCodeAt(0));
+      const url: string = thumbHashToDataURL(bytes);
+      this.cache.set(hash, url);
+      return url;
+    } catch {
+      return null;
+    }
   }
 }

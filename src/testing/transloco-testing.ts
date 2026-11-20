@@ -1,5 +1,6 @@
 import { provideTransloco, type Translation, type TranslocoLoader } from '@jsverse/transloco';
 import { of, type Observable } from 'rxjs';
+import { SUPPORTED_LANGUAGES } from '../app/core/services/language/language.service';
 import en from '../assets/i18n/en.json';
 import pl from '../assets/i18n/pl.json';
 import photosEn from '../assets/i18n/photos/en.json';
@@ -24,6 +25,6 @@ class TestingLoader implements TranslocoLoader {
 
 export const provideTranslocoTesting = (): ReturnType<typeof provideTransloco> =>
   provideTransloco({
-    config: { availableLangs: ['en', 'pl'], defaultLang: 'en', prodMode: true },
+    config: { availableLangs: [...SUPPORTED_LANGUAGES], defaultLang: 'en', prodMode: true },
     loader: TestingLoader,
   });

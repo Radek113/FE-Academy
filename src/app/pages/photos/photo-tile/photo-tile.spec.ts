@@ -1,58 +1,88 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ImageTag, type ImageMetadata } from '../../../api/generated/model';
+import { makeImage } from '../../../../testing/image-factory';
+import { getTst, queryTst } from '../../../../testing/tst';
 import { PhotoTile } from './photo-tile';
 
-const image: ImageMetadata = {
-  id: 'a',
-  title: 'Title',
-  location: 'L',
-  date: '2024-01-01T00:00:00Z',
-  takenWith: 'Phone',
-  width: 400,
-  height: 300,
-  previewUrl: 'http://x/a',
-  detailedUrl: 'http://x/a/full',
-  thumbhash: 'nwgeDQJ6eI+Hd3Z4h4eIiHlflPh2',
-  tags: [ImageTag.nature],
-};
-
 describe('PhotoTile', () => {
+  const image = makeImage({ title: 'Sunrise', thumbhash: 'nwgeDQJ6eI+Hd3Z4h4eIiHlflPh2' });
   let fixture: ComponentFixture<PhotoTile>;
   let el: HTMLElement;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [PhotoTile] }).compileComponents();
+  const setup = (thumbhash: string | undefined = image.thumbhash): void => {
     fixture = TestBed.createComponent(PhotoTile);
-    fixture.componentRef.setInput('image', image);
+    fixture.componentRef.setInput('image', { ...image, thumbhash });
     fixture.detectChanges();
     el = fixture.nativeElement;
+  };
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [PhotoTile] });
   });
 
   it('should render the preview image with alt text', () => {
-    const img: HTMLImageElement = el.querySelector('img') as HTMLImageElement;
+    // when
+    setup();
+
+    // then
+    const img = getTst<HTMLImageElement>(el, 'photo-tile-image');
     expect(img.getAttribute('src')).toBe(image.previewUrl);
-    expect(img.alt).toBe(image.title);
+    expect(img.alt).toBe('Sunrise');
   });
 
   it('should show the thumbhash placeholder as background', () => {
-    const button: HTMLButtonElement = el.querySelector('button') as HTMLButtonElement;
-    expect(button.style.backgroundImage).toContain('data:image/png;base64');
+    // when
+    setup();
+
+    // then
+    expect(getTst(el, 'photo-tile-button').style.backgroundImage).toContain(
+      'data:image/png;base64',
+    );
+  });
+
+  it('should not set a placeholder for an undecodable thumbhash', () => {
+    // when
+    setup('%%% not base64 %%%');
+
+    // then
+    expect(getTst(el, 'photo-tile-button').style.backgroundImage).toBe('');
   });
 
   it('should fade the image in once loaded', () => {
-    const img: HTMLImageElement = el.querySelector('img') as HTMLImageElement;
-    expect(img.classList).toContain('loading');
+    // given
+    setup();
+    const img = getTst(el, 'photo-tile-image');
+
+    // when
     img.dispatchEvent(new Event('load'));
     fixture.detectChanges();
+
+    // then
     expect(img.classList).not.toContain('loading');
   });
 
+  it('should show a fallback when the image fails to load', () => {
+    // given
+    setup();
+
+    // when
+    getTst(el, 'photo-tile-image').dispatchEvent(new Event('error'));
+    fixture.detectChanges();
+
+    // then
+    expect(queryTst(el, 'photo-tile-image')).toBeNull();
+    expect(queryTst(el, 'photo-tile-fallback')).not.toBeNull();
+  });
+
   it('should emit opened on click', () => {
-    let count = 0;
-    fixture.componentInstance.opened.subscribe((): void => {
-      count++;
-    });
-    (el.querySelector('button') as HTMLButtonElement).click();
-    expect(count).toBe(1);
+    // given
+    setup();
+    const opened = vi.fn();
+    fixture.componentInstance.opened.subscribe(opened);
+
+    // when
+    getTst(el, 'photo-tile-button').click();
+
+    // then
+    expect(opened).toHaveBeenCalledOnce();
   });
 });

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-
 import { TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
@@ -12,5 +11,5 @@ import { TranslocoDirective } from '@jsverse/transloco';
 })
 export class Footer {
   protected readonly prefix: string = 'footer';
-  protected readonly year = new Date().getFullYear();
+  protected readonly year: number = new Date().getFullYear();
 }

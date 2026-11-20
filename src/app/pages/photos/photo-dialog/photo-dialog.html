@@ -1,8 +1,14 @@
 <ng-container *transloco="let t; prefix: prefix">
   <div class="header">
     <span class="spacer"></span>
-    <h2 mat-dialog-title>{{ image().title }}</h2>
-    <button matIconButton type="button" mat-dialog-close [attr.aria-label]="t('dialog.close')">
+    <h2 mat-dialog-title data-tst="photo-dialog-title">{{ image().title }}</h2>
+    <button
+      matIconButton
+      type="button"
+      mat-dialog-close
+      data-tst="photo-dialog-close"
+      [attr.aria-label]="t('dialog.close')"
+    >
       <mat-icon>close</mat-icon>
     </button>
   </div>
@@ -11,6 +17,7 @@
       <div
         #imageContainer
         class="viewer"
+        data-tst="photo-dialog-viewer"
         [class.fullscreen]="fullscreen()"
         (touchstart)="onTouchStart($event)"
         (touchend)="onTouchEnd($event)"
@@ -19,6 +26,7 @@
           matIconButton
           type="button"
           class="fullscreen-button"
+          data-tst="photo-dialog-fullscreen"
           [attr.aria-label]="fullscreen() ? t('dialog.exitFullscreen') : t('dialog.fullscreen')"
           (click)="toggleFullscreen()"
         >
@@ -29,6 +37,7 @@
             matIconButton
             type="button"
             class="nav-button prev"
+            data-tst="photo-dialog-nav-prev"
             [attr.aria-label]="t('dialog.previous')"
             (click)="prev()"
           >
@@ -40,6 +49,7 @@
             matIconButton
             type="button"
             class="nav-button next"
+            data-tst="photo-dialog-nav-next"
             [attr.aria-label]="t('dialog.next')"
             (click)="next()"
           >
@@ -47,7 +57,7 @@
           </button>
         }
         @if (loading()) {
-          <div class="spinner">
+          <div class="spinner" data-tst="photo-dialog-spinner">
             <mat-spinner diameter="48" />
           </div>
         }
@@ -55,6 +65,7 @@
           class="main"
           role="button"
           tabindex="0"
+          data-tst="photo-dialog-image"
           (click)="toggleFullscreen()"
           (keydown.enter)="toggleFullscreen()"
           [class.loading]="loading()"
@@ -69,13 +80,25 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button matButton type="button" [disabled]="!hasPrev()" (click)="prev()">
+    <button
+      matButton
+      type="button"
+      data-tst="photo-dialog-prev"
+      [disabled]="!hasPrev()"
+      (click)="prev()"
+    >
       <mat-icon>chevron_left</mat-icon>{{ t('dialog.previous') }}
     </button>
-    <button matButton type="button" [disabled]="!hasNext()" (click)="next()">
+    <button
+      matButton
+      type="button"
+      data-tst="photo-dialog-next"
+      [disabled]="!hasNext()"
+      (click)="next()"
+    >
       {{ t('dialog.next') }}<mat-icon iconPositionEnd>chevron_right</mat-icon>
     </button>
-    <button matButton="filled" type="button" (click)="download()">
+    <button matButton="filled" type="button" data-tst="photo-dialog-download" (click)="download()">
       <mat-icon>download</mat-icon>{{ t('dialog.download') }}
     </button>
   </mat-dialog-actions>

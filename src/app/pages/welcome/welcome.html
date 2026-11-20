@@ -1,9 +1,9 @@
 <ng-container *transloco="let t; prefix: prefix">
   <section class="hero">
     <div class="hero-content">
-      <h1>{{ t('heading') }}</h1>
+      <h1 data-tst="welcome-heading">{{ t('heading') }}</h1>
       <p>{{ t('intro') }}</p>
-      <a mat-flat-button routerLink="/photos">
+      <a mat-flat-button routerLink="/photos" data-tst="welcome-cta">
         <mat-icon aria-hidden="true">photo_library</mat-icon>
         {{ t('viewPhotos') }}
       </a>
@@ -13,7 +13,7 @@
   <section class="page-container">
     <div class="features">
       @for (feature of features; track feature.key) {
-        <mat-card appearance="outlined">
+        <mat-card appearance="outlined" data-tst="welcome-feature">
           <mat-card-header>
             <mat-icon mat-card-avatar aria-hidden="true">
               {{ feature.icon }}

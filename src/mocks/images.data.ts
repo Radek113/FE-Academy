@@ -16,7 +16,11 @@ const seeds: [string, string, ImageTag[], string][] = [
 ];
 
 export const images: ImageMetadata[] = Array.from({ length: 50 }, (_, i) => {
-  const [title, location, tags, takenWith] = seeds[i % seeds.length];
+  const seed = seeds[i % seeds.length];
+  if (!seed) {
+    throw new Error('Mock seeds must not be empty');
+  }
+  const [title, location, tags, takenWith] = seed;
   const id = `image-${i + 1}`;
   const portrait = i % 3 === 0;
   const width = portrait ? 1200 : 1600;

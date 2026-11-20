@@ -17,6 +17,18 @@ export default defineConfig([
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      curly: ['error', 'all'],
+      eqeqeq: ['error', 'always'],
+      'no-console': ['warn', { allow: ['error', 'warn'] }],
+      '@typescript-eslint/member-ordering': [
+        'error',
+        {
+          default: {
+            memberTypes: ['signature', 'field', 'constructor', 'method'],
+            order: 'as-written',
+          },
+        },
+      ],
       '@angular-eslint/directive-selector': [
         'error',
         {

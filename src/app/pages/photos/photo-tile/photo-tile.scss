@@ -5,6 +5,7 @@
 }
 
 button {
+  position: relative;
   display: block;
   width: 100%;
   padding: 0;
@@ -31,4 +32,11 @@ img {
 
 button:hover img {
   transform: scale(1.05);
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  color: var(--mat-sys-on-surface-variant);
 }

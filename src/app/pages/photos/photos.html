@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; prefix: prefix">
-  <section class="page-container">
+  <section class="page-container" data-tst="photos-page">
     <app-photo-filter
       [tags]="allTags"
       [selectedTags]="selectedTags()"
@@ -7,20 +7,22 @@
     />
 
     @if (images.isLoading()) {
-      <div class="state">
+      <div class="state" data-tst="photos-loading">
         <mat-spinner diameter="48" />
       </div>
     } @else if (images.error()) {
-      <div class="state">
+      <div class="state" data-tst="photos-error">
         <p>{{ t('error') }}</p>
-        <button matButton="filled" type="button" (click)="images.reload()">{{ t('retry') }}</button>
+        <button matButton="filled" type="button" data-tst="photos-retry" (click)="images.reload()">
+          {{ t('retry') }}
+        </button>
       </div>
     } @else {
-      <div class="gallery">
+      <div class="gallery" data-tst="photos-gallery">
         @for (image of filteredImages(); track image.id; let i = $index) {
-          <app-photo-tile [image]="image" (opened)="open(i)" />
+          <app-photo-tile data-tst="photo-tile" [image]="image" (opened)="open(i)" />
         } @empty {
-          <p>{{ t('empty') }}</p>
+          <p data-tst="photos-empty">{{ t('empty') }}</p>
         }
       </div>
     }

@@ -1,17 +1,23 @@
 <ng-container *transloco="let t; prefix: prefix">
   <div class="info">
-    <div id="photo-info-panel" class="panel" [class.open]="open()" [attr.aria-hidden]="!open()">
+    <div
+      id="photo-info-panel"
+      class="panel"
+      data-tst="photo-info-panel"
+      [class.open]="open()"
+      [attr.aria-hidden]="!open()"
+    >
       <dl>
         <dt>{{ t('dialog.location') }}</dt>
-        <dd>{{ image().location }}</dd>
+        <dd data-tst="photo-info-location">{{ image().location }}</dd>
         <dt>{{ t('dialog.date') }}</dt>
-        <dd>{{ image().date | date: 'longDate' }}</dd>
+        <dd data-tst="photo-info-date">{{ image().date | date: 'longDate' }}</dd>
         <dt>{{ t('dialog.takenWith') }}</dt>
-        <dd>{{ image().takenWith }}</dd>
+        <dd data-tst="photo-info-taken-with">{{ image().takenWith }}</dd>
       </dl>
       <mat-chip-set [attr.aria-label]="t('dialog.tagsLabel')">
         @for (tag of image().tags; track tag) {
-          <mat-chip>{{ t('tags.' + tag) }}</mat-chip>
+          <mat-chip data-tst="photo-info-tag">{{ t('tags.' + tag) }}</mat-chip>
         }
       </mat-chip-set>
     </div>
@@ -19,6 +25,7 @@
       matIconButton
       type="button"
       class="toggle"
+      data-tst="photo-info-toggle"
       aria-controls="photo-info-panel"
       [attr.aria-expanded]="open()"
       [attr.aria-label]="t('dialog.info')"

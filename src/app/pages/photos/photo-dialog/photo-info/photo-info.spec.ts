@@ -1,94 +1,116 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ImageTag, type ImageMetadata } from '../../../../api/generated/model';
+import { ImageTag } from '../../../../api/generated/model';
+import { makeImage } from '../../../../../testing/image-factory';
 import { provideTranslocoTesting } from '../../../../../testing/transloco-testing';
+import { getTst, queryAllTst } from '../../../../../testing/tst';
+import { PHOTOS_SCOPE_PROVIDER } from '../../photos-scope.transloco';
 import { PhotoInfo } from './photo-info';
-
-const image: ImageMetadata = {
-  id: 'a',
-  title: 'Title a',
-  location: 'Warsaw',
-  date: '2024-03-05T10:00:00Z',
-  takenWith: 'Sony A7 III',
-  width: 100,
-  height: 100,
-  previewUrl: 'http://x/a',
-  detailedUrl: 'http://x/a/full',
-  tags: [ImageTag.city, ImageTag.night],
-};
 
 describe('PhotoInfo', () => {
   let fixture: ComponentFixture<PhotoInfo>;
   let el: HTMLElement;
 
-  const panel = (): HTMLElement => el.querySelector('.panel') as HTMLElement;
-  const toggle = (): HTMLButtonElement => el.querySelector('.toggle') as HTMLButtonElement;
+  const isOpen = (): boolean => getTst(el, 'photo-info-panel').classList.contains('open');
+  const toggle = (): HTMLElement => getTst(el, 'photo-info-toggle');
+  const click = (target: HTMLElement): void => {
+    target.click();
+    fixture.detectChanges();
+  };
+  const dispatch = (event: Event): void => {
+    toggle().dispatchEvent(event);
+    fixture.detectChanges();
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PhotoInfo],
-      providers: [provideTranslocoTesting()],
+      providers: [provideTranslocoTesting(), PHOTOS_SCOPE_PROVIDER],
     }).compileComponents();
     fixture = TestBed.createComponent(PhotoInfo);
-    fixture.componentRef.setInput('image', image);
+    fixture.componentRef.setInput('image', makeImage({ tags: [ImageTag.city, ImageTag.night] }));
     fixture.detectChanges();
     el = fixture.nativeElement;
   });
 
   it('should render image details', () => {
-    const text: string = el.textContent ?? '';
-    expect(text).toContain('Warsaw');
-    expect(text).toContain('Sony A7 III');
-    expect(text).toContain('March 5, 2024');
-    expect(text).toContain('Night');
+    // when
+    // then
+    expect(getTst(el, 'photo-info-location').textContent).toBe('Warsaw');
+    expect(getTst(el, 'photo-info-taken-with').textContent).toBe('Sony A7 III');
+    expect(getTst(el, 'photo-info-date').textContent).toBe('March 5, 2024');
+    expect(queryAllTst(el, 'photo-info-tag').map((tag) => tag.textContent?.trim())).toEqual([
+      'City',
+      'Night',
+    ]);
   });
 
   it('should be closed by default and toggle on click', () => {
-    expect(panel().classList).not.toContain('open');
-    toggle().click();
-    fixture.detectChanges();
-    expect(panel().classList).toContain('open');
-    expect(toggle().getAttribute('aria-expanded')).toBe('true');
-    toggle().click();
-    fixture.detectChanges();
-    expect(panel().classList).not.toContain('open');
+    // given
+    const initiallyOpen = isOpen();
+
+    // when
+    click(toggle());
+    const openAfterFirstClick = isOpen();
+    click(toggle());
+
+    // then
+    expect(initiallyOpen).toBe(false);
+    expect(openAfterFirstClick).toBe(true);
+    expect(isOpen()).toBe(false);
   });
 
   it('should open on mouse hover and close on leave', () => {
-    const info: HTMLElement = toggle();
-    info.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'mouse' }));
-    fixture.detectChanges();
-    expect(panel().classList).toContain('open');
-    info.dispatchEvent(new PointerEvent('pointerleave'));
-    fixture.detectChanges();
-    expect(panel().classList).not.toContain('open');
+    // when
+    dispatch(new PointerEvent('pointerenter', { pointerType: 'mouse' }));
+    const openOnEnter = isOpen();
+    dispatch(new PointerEvent('pointerleave'));
+
+    // then
+    expect(openOnEnter).toBe(true);
+    expect(isOpen()).toBe(false);
   });
 
   it('should ignore touch pointer enter', () => {
-    const info: HTMLElement = toggle();
-    info.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'touch' }));
-    fixture.detectChanges();
-    expect(panel().classList).not.toContain('open');
-  });
+    // when
+    dispatch(new PointerEvent('pointerenter', { pointerType: 'touch' }));
 
-  it('should not open when hovering the hidden panel area', () => {
-    panel().dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'mouse' }));
-    fixture.detectChanges();
-    expect(panel().classList).not.toContain('open');
+    // then
+    expect(isOpen()).toBe(false);
   });
 
   it('should close when clicking outside', () => {
-    toggle().click();
-    fixture.detectChanges();
-    document.body.click();
-    fixture.detectChanges();
-    expect(panel().classList).not.toContain('open');
+    // given
+    click(toggle());
+
+    // when
+    click(document.body);
+
+    // then
+    expect(isOpen()).toBe(false);
   });
 
-  it('should close on Escape', () => {
-    toggle().click();
-    fixture.detectChanges();
-    toggle().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-    fixture.detectChanges();
-    expect(panel().classList).not.toContain('open');
+  it('should stay open when clicking inside the component', () => {
+    // given
+    click(toggle());
+
+    // when
+    click(getTst(el, 'photo-info-panel'));
+
+    // then
+    expect(isOpen()).toBe(true);
+  });
+
+  it('should close on Escape without letting it propagate', () => {
+    // given
+    click(toggle());
+    const escape = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+    const stopPropagation = vi.spyOn(escape, 'stopPropagation');
+
+    // when
+    dispatch(escape);
+
+    // then
+    expect(isOpen()).toBe(false);
+    expect(stopPropagation).toHaveBeenCalled();
   });
 });

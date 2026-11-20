@@ -9,19 +9,19 @@ import {
   type Signal,
 } from '@angular/core';
 import { MatChipsModule, type MatChipSelectionChange } from '@angular/material/chips';
-import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
+import { TranslocoDirective } from '@jsverse/transloco';
 import type { ImageTag } from '../../../api/generated/model';
+import { PHOTOS_SCOPE } from '../photos-scope.transloco';
 
 @Component({
   selector: 'app-photo-filter',
   imports: [MatChipsModule, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope({ scope: 'photos' })],
   templateUrl: './photo-filter.html',
   styleUrl: './photo-filter.scss',
 })
 export class PhotoFilter {
-  protected readonly prefix: string = 'photos';
+  protected readonly prefix: string = PHOTOS_SCOPE;
 
   readonly tags: InputSignal<readonly ImageTag[]> = input.required<readonly ImageTag[]>();
   readonly selectedTags: InputSignal<readonly ImageTag[]> = input<readonly ImageTag[]>([]);
@@ -42,15 +42,6 @@ export class PhotoFilter {
     }
   }
 
-  private toggle(tag: ImageTag): void {
-    const selected: readonly ImageTag[] = this.selectedTags();
-    this.selectedTagsChange.emit(
-      selected.includes(tag)
-        ? selected.filter((t: ImageTag): boolean => t !== tag)
-        : [...selected, tag],
-    );
-  }
-
   protected onAllChange(event: MatChipSelectionChange): void {
     if (!event.isUserInput) {
       return;
@@ -61,5 +52,14 @@ export class PhotoFilter {
       // "All" cannot be deselected manually; it only changes when another chip is picked.
       event.source.select();
     }
+  }
+
+  private toggle(tag: ImageTag): void {
+    const selected: readonly ImageTag[] = this.selectedTags();
+    this.selectedTagsChange.emit(
+      selected.includes(tag)
+        ? selected.filter((t: ImageTag): boolean => t !== tag)
+        : [...selected, tag],
+    );
   }
 }

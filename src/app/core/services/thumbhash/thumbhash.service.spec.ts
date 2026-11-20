@@ -10,10 +10,18 @@ describe('ThumbhashService', () => {
   });
 
   it('should decode a hash to a PNG data URL', () => {
-    expect(service.toDataUrl(hash)).toMatch(/^data:image\/png;base64,/);
+    // when
+    const result = service.toDataUrl(hash);
+
+    // then
+    expect(result).toMatch(/^data:image\/png;base64,/);
   });
 
-  it('should return the same value for repeated calls', () => {
-    expect(service.toDataUrl(hash)).toBe(service.toDataUrl(hash));
+  it('should return null for a hash that is not valid base64', () => {
+    // when
+    const result = service.toDataUrl('%%% not base64 %%%');
+
+    // then
+    expect(result).toBeNull();
   });
 });

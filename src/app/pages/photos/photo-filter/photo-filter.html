@@ -2,14 +2,23 @@
   *transloco="let t; prefix: prefix"
   class="filter"
   role="group"
+  data-tst="photo-filter"
   [attr.aria-label]="t('filter.groupLabel')"
 >
   <mat-chip-listbox multiple [attr.aria-label]="t('filter.tagsLabel')">
-    <mat-chip-option [selected]="!hasSelection()" (selectionChange)="onAllChange($event)">
+    <mat-chip-option
+      data-tst="photo-filter-all"
+      [selected]="!hasSelection()"
+      (selectionChange)="onAllChange($event)"
+    >
       {{ t('filter.all') }}
     </mat-chip-option>
     @for (tag of tags(); track tag) {
-      <mat-chip-option [selected]="isSelected(tag)" (selectionChange)="onChipChange($event, tag)">
+      <mat-chip-option
+        [attr.data-tst]="'photo-filter-tag-' + tag"
+        [selected]="isSelected(tag)"
+        (selectionChange)="onChipChange($event, tag)"
+      >
         {{ t('tags.' + tag) }}
       </mat-chip-option>
     }

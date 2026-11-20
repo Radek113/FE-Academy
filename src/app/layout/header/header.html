@@ -1,7 +1,12 @@
 <ng-container *transloco="let t; prefix: prefix">
   <mat-toolbar>
     <div class="page-container toolbar-content">
-      <a routerLink="/" class="brand" [attr.aria-label]="t('homeAriaLabel')">
+      <a
+        routerLink="/"
+        class="brand"
+        data-tst="header-brand"
+        [attr.aria-label]="t('homeAriaLabel')"
+      >
         <mat-icon aria-hidden="true">photo_camera</mat-icon>
         <span>PhotoPortfolio</span>
       </a>
@@ -10,6 +15,7 @@
         @for (link of links; track link.path) {
           <a
             mat-button
+            data-tst="header-nav-link"
             [routerLink]="link.path"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: link.exact }"
@@ -25,6 +31,7 @@
           mat-button
           type="button"
           class="language-button"
+          data-tst="header-language-button"
           [attr.aria-label]="
             t('language.label') + ': ' + t('language.' + languageService.language())
           "
@@ -37,7 +44,9 @@
             width="20"
             height="14"
           />
-          <span class="language-code">{{ languageService.language().toUpperCase() }}</span>
+          <span class="language-code" data-tst="header-language-code">{{
+            languageService.language().toUpperCase()
+          }}</span>
           <mat-icon iconPositionEnd aria-hidden="true">arrow_drop_down</mat-icon>
         </button>
         <mat-menu #languageMenu="matMenu" xPosition="before">
@@ -45,6 +54,7 @@
             <button
               mat-menu-item
               type="button"
+              [attr.data-tst]="'header-language-option-' + lang"
               [attr.lang]="lang"
               [attr.aria-current]="lang === languageService.language() ? 'true' : null"
               (click)="languageService.setLanguage(lang)"
@@ -68,6 +78,7 @@
           mat-icon-button
           type="button"
           class="theme-toggle"
+          data-tst="header-theme-toggle"
           [attr.aria-pressed]="themeService.theme() === 'dark'"
           [attr.aria-label]="t('theme.toggle')"
           [matTooltip]="themeService.theme() === 'dark' ? t('theme.toLight') : t('theme.toDark')"
@@ -82,6 +93,7 @@
       <button
         mat-icon-button
         class="menu-button"
+        data-tst="header-menu-button"
         type="button"
         [attr.aria-label]="t('openMenuAriaLabel')"
         [matMenuTriggerFor]="menu"

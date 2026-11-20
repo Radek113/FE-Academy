@@ -1,17 +1,26 @@
 <button
   type="button"
+  data-tst="photo-tile-button"
   [attr.aria-label]="image().title"
   [style.aspect-ratio]="aspectRatio()"
   [style.background-image]="placeholder()"
   (click)="opened.emit()"
 >
-  <img
-    [class.loading]="!loaded()"
-    [src]="image().previewUrl"
-    [alt]="image().title"
-    [attr.width]="image().width"
-    [attr.height]="image().height"
-    loading="lazy"
-    (load)="onImageLoaded()"
-  />
+  @if (failed()) {
+    <mat-icon class="fallback" data-tst="photo-tile-fallback" aria-hidden="true"
+      >broken_image</mat-icon
+    >
+  } @else {
+    <img
+      data-tst="photo-tile-image"
+      [class.loading]="!loaded()"
+      [src]="image().previewUrl"
+      [alt]="image().title"
+      [attr.width]="image().width"
+      [attr.height]="image().height"
+      loading="lazy"
+      (load)="onImageLoaded()"
+      (error)="onImageFailed()"
+    />
+  }
 </button>

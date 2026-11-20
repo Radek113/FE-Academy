@@ -1,52 +1,64 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideTranslocoTesting } from '../../../testing/transloco-testing';
+import { getTst, queryAllTst } from '../../../testing/tst';
+import { LanguageService } from '../../core/services/language/language.service';
 import { Header } from './header';
 
 describe('Header', () => {
+  let fixture: ComponentFixture<Header>;
+  let el: HTMLElement;
+
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    localStorage.clear();
+    document.documentElement.style.colorScheme = '';
+    TestBed.configureTestingModule({
       imports: [Header],
       providers: [provideRouter([]), provideTranslocoTesting()],
-    }).compileComponents();
+    });
+    fixture = TestBed.createComponent(Header);
+    el = fixture.nativeElement;
+    await fixture.whenStable();
   });
 
-  it('should render brand and navigation links', async () => {
-    const fixture = TestBed.createComponent(Header);
-    await fixture.whenStable();
-    const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('a[aria-label="PhotoPortfolio home"]')?.textContent).toContain(
-      'PhotoPortfolio',
-    );
-    const hrefs = Array.from(el.querySelectorAll('nav a')).map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['/', '/photos']);
+  it('should render the brand and navigation links', () => {
+    // when
+    // then
+    expect(getTst(el, 'header-brand').textContent).toContain('PhotoPortfolio');
+    expect(queryAllTst(el, 'header-nav-link').map((a) => a.getAttribute('href'))).toEqual([
+      '/',
+      '/photos',
+    ]);
   });
 
-  it('should toggle dark mode via the theme button', async () => {
-    const fixture = TestBed.createComponent(Header);
-    await fixture.whenStable();
-    const el = fixture.nativeElement as HTMLElement;
-    const button = el.querySelector<HTMLButtonElement>('.theme-toggle')!;
-    const before = button.getAttribute('aria-pressed');
+  it('should toggle the theme with the theme button', async () => {
+    // given
+    const button: HTMLElement = getTst(el, 'header-theme-toggle');
+    const wasDark: boolean = button.getAttribute('aria-pressed') === 'true';
+
+    // when
     button.click();
     await fixture.whenStable();
-    expect(button.getAttribute('aria-pressed')).not.toBe(before);
-    expect(document.documentElement.style.colorScheme).toBe(before === 'true' ? 'light' : 'dark');
+
+    // then
+    expect(button.getAttribute('aria-pressed')).toBe(String(!wasDark));
+    expect(document.documentElement.style.colorScheme).toBe(wasDark ? 'light' : 'dark');
   });
 
-  it('should show the active language code', async () => {
-    const fixture = TestBed.createComponent(Header);
+  it('should switch the language from the language menu', async () => {
+    // given
+    const languageService = TestBed.inject(LanguageService);
+    languageService.setLanguage('en');
     await fixture.whenStable();
-    const code = (fixture.nativeElement as HTMLElement).querySelector('.language-code');
-    expect(code?.textContent).toMatch(/^(EN|PL)$/);
-  });
 
-  it('should render the mobile menu button', async () => {
-    const fixture = TestBed.createComponent(Header);
+    // when
+    getTst(el, 'header-language-button').click();
     await fixture.whenStable();
-    const button = (fixture.nativeElement as HTMLElement).querySelector(
-      'button[aria-label="Open navigation menu"]',
-    );
-    expect(button).toBeTruthy();
+    getTst(document.body, 'header-language-option-pl').click();
+    await fixture.whenStable();
+
+    // then
+    expect(languageService.language()).toBe('pl');
+    expect(getTst(el, 'header-language-code').textContent).toBe('PL');
   });
 });
