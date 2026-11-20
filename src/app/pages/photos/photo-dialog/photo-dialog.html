@@ -98,8 +98,22 @@
     >
       {{ t('dialog.next') }}<mat-icon iconPositionEnd>chevron_right</mat-icon>
     </button>
-    <button matButton="filled" type="button" data-tst="photo-dialog-download" (click)="download()">
-      <mat-icon>download</mat-icon>{{ t('dialog.download') }}
+    <button
+      matButton="filled"
+      type="button"
+      data-tst="photo-dialog-download"
+      [disabled]="downloading()"
+      [attr.aria-busy]="downloading()"
+      (click)="download()"
+    >
+      <mat-icon>
+        @if (downloading()) {
+          <mat-spinner diameter="18" data-tst="photo-dialog-download-spinner" />
+        } @else {
+          download
+        }
+      </mat-icon>
+      {{ t('dialog.download') }}
     </button>
   </mat-dialog-actions>
 </ng-container>

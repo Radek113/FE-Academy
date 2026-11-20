@@ -73,6 +73,7 @@ export class PhotoDialog {
     computation: (): boolean => true,
   });
   protected readonly fullscreen: WritableSignal<boolean> = signal<boolean>(false);
+  protected readonly downloading: WritableSignal<boolean> = signal<boolean>(false);
 
   protected onKey(event: KeyboardEvent): void {
     if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) {
@@ -139,6 +140,18 @@ export class PhotoDialog {
   }
 
   protected async download(): Promise<void> {
+    if (this.downloading()) {
+      return;
+    }
+    this.downloading.set(true);
+    try {
+      await this.downloadImage();
+    } finally {
+      this.downloading.set(false);
+    }
+  }
+
+  private async downloadImage(): Promise<void> {
     const { detailedUrl, id } = this.image();
     try {
       const response: Response = await fetch(detailedUrl);
