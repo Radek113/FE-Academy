@@ -5,5 +5,8 @@ export async function enableMocking(): Promise<void> {
     return;
   }
   const { worker } = await import('./browser');
-  await worker.start({ onUnhandledFrame: 'bypass' });
+  await worker.start({
+    onUnhandledFrame: 'bypass',
+    serviceWorker: { url: `${document.baseURI}mockServiceWorker.js` },
+  });
 }
